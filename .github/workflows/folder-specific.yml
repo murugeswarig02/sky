@@ -1,0 +1,25 @@
+name: Folder-Specific Workflow
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: echo "Installing dependencies"
+
+    - name: Run test script
+      run: echo "Test executed successfully"
