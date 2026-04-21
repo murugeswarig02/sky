@@ -1,0 +1,42 @@
+name: Show src Folder Changes
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+
+jobs:
+  show-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Display commit information
+        run: |
+          echo "================================"
+          echo "📁 CHANGES DETECTED IN src/ FOLDER"
+          echo "================================"
+          echo ""
+          echo "Commit Message:"
+          git log -1 --pretty=%B
+          echo ""
+          echo "Author: $(git log -1 --pretty=%an)"
+          echo "Email: $(git log -1 --pretty=%ae)"
+          echo "Commit SHA: $(git log -1 --pretty=%H)"
+          echo ""
+
+      - name: Show changed files in src folder
+        run: |
+          echo "Files Changed in src/ folder:"
+          echo "-----------------------------"
+          git diff-tree --no-commit-id --name-only -r HEAD | grep '^src/' || echo "No files in src/ folder detected in this commit"
+          echo ""
+          echo "✅ Workflow completed successfully!"
