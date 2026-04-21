@@ -1,8 +1,0 @@
-{
-  "name": "sky",
-  "version": "1.0.0",
-  "description": "Test project",
-  "scripts": {
-    "test": "echo 'Test executed successfully'"
-  }
-}
